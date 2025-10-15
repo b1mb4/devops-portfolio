@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Tasks - Task Manager{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Your Tasks</h2>
+    <div class="stats-bar">
+        <div class="stat">
+            <span class="stat-label">Total</span>
+            <span class="stat-value">{{ stats.total }}</span>
+        </div>
+        <div class="stat">
+            <span class="stat-label">To Do</span>
+            <span class="stat-value todo">{{ stats.todo }}</span>
+        </div>
+        <div class="stat">
+            <span class="stat-label">In Progress</span>
+            <span class="stat-value progress">{{ stats.in_progress }}</span>
+        </div>
+        <div class="stat">
+            <span class="stat-label">Done</span>
+            <span class="stat-value done">{{ stats.done }}</span>
+        </div>
+    </div>
+</div>
+
+{% if tasks %}
+<div class="tasks-grid">
+    {% for task in tasks %}
+    <div class="task-card status-{{ task.status }} priority-{{ task.priority }}">
+        <div class="task-header">
+            <h3>
+                <a href="/task/{{ task.id }}">{{ task.title }}</a>
+            </h3>
+            <span class="priority-badge">{{ task.priority }}</span>
+        </div>
+        
+        {% if task.description %}
+        <p class="task-description">{{ task.description[:100] }}...</p>
+        {% endif %}
+        
+        <div class="task-meta">
+            <span class="status-badge status-{{ task.status }}">{{ task.status }}</span>
+            <span class="date">{{ task.created_at.strftime('%d.%m.%Y') }}</span>
+        </div>
+        
+        <div class="task-actions">
+            {% if task.status != 'done' %}
+                <a href="/task/{{ task.id }}/status/done" class="btn btn-small btn-success">✓ Done</a>
+            {% endif %}
+            {% if task.status != 'in_progress' %}
+                <a href="/task/{{ task.id }}/status/in_progress" class="btn btn-small btn-info">→ Progress</a>
+            {% endif %}
+            <a href="/task/{{ task.id }}" class="btn btn-small btn-primary">View</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+    <p>No tasks yet. <a href="/task/new">Create one!</a></p>
+</div>
+{% endif %}
+{% endblock %}

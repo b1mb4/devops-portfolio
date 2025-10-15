@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Statistics - Task Manager{% endblock %}
+
+{% block content %}
+<div class="stats-page">
+    <h2>Task Statistics</h2>
+    
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Total Tasks</h3>
+            <p class="stat-big">{{ stats.total }}</p>
+        </div>
+        
+        <div class="stat-card">
+            <h3>To Do</h3>
+            <p class="stat-big todo">{{ stats.todo }}</p>
+        </div>
+        
+        <div class="stat-card">
+            <h3>In Progress</h3>
+            <p class="stat-big progress">{{ stats.in_progress }}</p>
+        </div>
+        
+        <div class="stat-card">
+            <h3>Completed</h3>
+            <p class="stat-big done">{{ stats.done }}</p>
+        </div>
+        
+        <div class="stat-card">
+            <h3>High Priority</h3>
+            <p class="stat-big">{{ stats.high_priority }}</p>
+        </div>
+        
+        <div class="stat-card">
+            <h3>Overdue</h3>
+            <p class="stat-big danger">{{ stats.overdue }}</p>
+        </div>
+    </div>
+    
+    <div class="stat-info">
+        <h3>Completion Rate</h3>
+        {% if stats.total > 0 %}
+                        {% set completion_rate = (stats.done / stats.total * 100) | int %}
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: {{ completion_rate }}%"></div>
+            </div>
+            <p>{{ completion_rate }}% of tasks completed</p>
+        {% else %}
+            <p>No tasks yet</p>
+        {% endif %}
+    </div>
+    
+    <div class="action-buttons">
+        <a href="/" class="btn btn-primary">Back to Tasks</a>
+    </div>
+</div>
+{% endblock %}

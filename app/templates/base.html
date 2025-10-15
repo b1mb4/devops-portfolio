@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Task Manager{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">📋 Task Manager</h1>
+            <ul class="nav-links">
+                <li><a href="/">Tasks</a></li>
+                <li><a href="/stats">Statistics</a></li>
+                <li><a href="/task/new" class="btn-primary">+ New Task</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        <p>Task Manager v{{ version }} | {{ environment }}</p>
+    </footer>
+</body>
+</html>
