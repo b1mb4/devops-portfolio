@@ -10,3 +10,11 @@ __pycache__
 .idea
 node_modules
 .DS_Store
+docker/
+*.db
+*.log
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info
